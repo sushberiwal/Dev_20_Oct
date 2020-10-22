@@ -1,0 +1,23 @@
+{
+  "name": "Dev_20oct",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sushberiwal/Dev_20_Oct.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sushberiwal/Dev_20_Oct/issues"
+  },
+  "homepage": "https://github.com/sushberiwal/Dev_20_Oct#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
