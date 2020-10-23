@@ -13,18 +13,14 @@ let ch = cheerio.load(htmlkaData);
 
 let h1KaData = ch("h1").text();
 // <h1> heading 1</h1>
-
 // console.log(h1KaData);
 
 // let pkaData = ch("p").text();
 // [  <p>askjdbajksdb </p>  , <p> aklsnfkjasb</p>    ]
 // console.log(pkaData);
 
-
 // let pKaData = ch(".pa.outer").text();
 // console.log(pKaData);
-
-
 let pKaData = ch("ul .pa").text();
 // console.log(pKaData);
 
