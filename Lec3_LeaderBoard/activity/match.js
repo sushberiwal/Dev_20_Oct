@@ -4,18 +4,26 @@ const request = require("request");
 let fs = require("fs");
 
 let leaderboard = [];
-
+let count=0;
 // let link = "https://www.espncricinfo.com/series/8039/scorecard/1144529/england-vs-australia-2nd-semi-final-icc-cricket-world-cup-2019";
 
 
 function getMatch(link){
-    request(link , cb);
+    console.log("sending request" , count);
+    request(link , cb); // async
+    count++;
 }
 
 
 function cb(error , response , html){
     if(error == null && response.statusCode == 200){
+        count--;
+        console.log("received data" , count);
         parseData(html);
+
+        if(count == 0){
+            console.table(leaderboard);
+        }
     }
     else if(response.statusCode == 404){
         console.log("Page not found");
@@ -54,8 +62,8 @@ function parseData(html){
             }
         }
     }
-    console.log("###########################################");
 }
+
 
 
 function createLeaderBoard(teamName , batsmanName , runs , balls , fours , sixes ){
