@@ -81,11 +81,10 @@ browserOpenPromise
     
     for(let i=1 ; i<completeLinks.length ; i++){
       oneQuesSolvePromise = oneQuesSolvePromise.then(function(){
-        let nextQuesSolvePromise = solveQuestion(completeLinks[i])
-        return nextQuesSolvePromise;
+        return solveQuestion(completeLinks[i]);
       })
     }
-  
+    
   })
   .then(function() {
     console.log("All Questions solved !!");
@@ -188,10 +187,10 @@ function solveQuestion(qLink) {
         let waitPromise = waitAndClick("#Editorial");
         return waitPromise;
       })
-      .then(function(){
-        let lockBtnPromise = handleLockBtn();
-        return lockBtnPromise;
-      })
+      // .then(function(){
+      //   let lockBtnPromise = handleLockBtn();
+      //   return lockBtnPromise;
+      // })
       .then(function () {
         let codePromise = getCode();
         return codePromise;
