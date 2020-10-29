@@ -76,12 +76,19 @@ browserOpenPromise
       let completeLink = "https://www.hackerrank.com" + allLinks[i];
       completeLinks.push(completeLink);
     }
-    //   console.log(completeLinks);
-    let questionSolvedPromise = solveQuestion(completeLinks[0]); // serially => loops
-    return questionSolvedPromise;
+
+    let oneQuesSolvePromise = solveQuestion(completeLinks[0]);
+    
+    for(let i=1 ; i<completeLinks.length ; i++){
+      oneQuesSolvePromise = oneQuesSolvePromise.then(function(){
+        let nextQuesSolvePromise = solveQuestion(completeLinks[i])
+        return nextQuesSolvePromise;
+      })
+    }
+  
   })
-  .then(function () {
-    console.log("One questions solved !!!");
+  .then(function() {
+    console.log("All Questions solved !!");
   })
   .catch(function (error) {
     console.log(error);
@@ -153,6 +160,23 @@ function getCode() {
   });
 }
 
+function handleLockBtn(){
+  return new Promise(function(resolve , reject){
+    let waitAndClickPromise = waitAndClick(".ui-btn.ui-btn-normal.ui-btn-primary");
+    waitAndClickPromise.then(function(){
+      console.log("lock btn clicked !!");
+      resolve();
+    })
+    .catch(function(err){
+      // when wait and click function fails => when selector is not found !!
+      console.log("lock btn not found !!");
+      resolve();
+    });
+  });
+}
+
+
+// knows to solve one questions
 function solveQuestion(qLink) {
   return new Promise(function (resolve, reject) {
     let questionGotoPromise = tab.goto(qLink);
@@ -163,6 +187,10 @@ function solveQuestion(qLink) {
       .then(function () {
         let waitPromise = waitAndClick("#Editorial");
         return waitPromise;
+      })
+      .then(function(){
+        let lockBtnPromise = handleLockBtn();
+        return lockBtnPromise;
       })
       .then(function () {
         let codePromise = getCode();
@@ -181,7 +209,10 @@ function solveQuestion(qLink) {
         return submitClickedPromise;
       })
       .then(function(){
-          console.log("one questions submitted !!");
+          resolve();
+      })
+      .catch(function(err){
+        reject(err);
       })
   });
 }
