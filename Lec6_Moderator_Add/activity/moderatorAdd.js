@@ -70,15 +70,20 @@ async function addModerators() {
   }
 
   await Promise.all(allModeratorsAddPromise);
-
   // click on next button if visible and call addModerators() else return;
 
   let allLis = await tab.$$(".pagination li");
-  let nextBtn = allLis[allLis.length - 2];
+//   console.log(allLis);
 
-  let isDisabled = tab.evaluate(function (elem) {
+
+  let nextBtn = allLis[allLis.length - 2];
+//   console.log(nextBtn);
+
+  let isDisabled = await tab.evaluate(function (elem) {
     return elem.classList.contains("disabled");
   }, nextBtn);
+  
+  
   if (isDisabled) {
     return;
   }
