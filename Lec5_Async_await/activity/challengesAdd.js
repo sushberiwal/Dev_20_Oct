@@ -27,7 +27,7 @@ let tab;
     // <li>  </li>   
     // manage challenge page
     await Promise.all([ page.waitForNavigation({waitUntil:"networkidle0"})   , manageChallenge.click() ]);
-    let url = await page.url();
+    let manageChallengeUrl = await page.url(); //https://www.hackerrank.com/administration/challenges
     
     // create challenge page
     await Promise.all([ page.waitForNavigation({waitUntil:"networkidle0"})   , page.click(".btn.btn-green.backbone.pull-right")]);
@@ -35,14 +35,14 @@ let tab;
     await createChallenge(challenges[0]);
 
     for(let i=1 ; i<challenges.length ; i++){
-        await tab.goto(url);
+        await tab.goto(manageChallengeUrl);
         await Promise.all([ page.waitForNavigation({waitUntil:"networkidle0"})   , page.click(".btn.btn-green.backbone.pull-right")]);
         await createChallenge(challenges[i]);
     }
-    await tab.goto(url);
+    await tab.goto("https://www.hackerrank.com/dashboard?h_r=logo");
   } 
   catch (error) {
-
+      console.log(error);
   }
 })();
 // challenge = {
